@@ -14,33 +14,20 @@ if hash sxhkd >/dev/null 2>&1; then
 	sxhkd -c "$HOME/.config/dk/sxhkdrc" &
 fi
 
-### Autostart ###
-picom --config ~/.config/picom/picom.conf &
-nm-applet &
-volumeicon &
-cbatticon &
-#polybar &
-~/bin/polybar-launch &
-nitrogen --restore &
-/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-dunst &
-numlockx on &
-xclip &
-
 # adjust border widths based on the DPI of the monitor
-px=$(xrandr | grep ' connected' | tail -n1 | grep -o '[0-9]\+x[0-9]\+' | cut -d'x' -f2)
-mm=$(xrandr | grep ' connected' | tail -n1 | grep -o '[0-9]\+mm' | tail -n1 | sed 's/mm//')
+px=$(xrandr | grep ' connected' | tail -n1 | grep -o '[0-4]\+x[0-9]\+' | cut -d'x' -f2)
+mm=$(xrandr | grep ' connected' | tail -n1 | grep -o '[0-4]\+mm' | tail -n1 | sed 's/mm//')
 dpi=$(( (px / mm) * 25 ))
 
 if [ $dpi -ge 140 ]; then
-	border_width=5
-	border_outer_width=3
+	border_width=0
+	border_outer_width=0
 elif [ $dpi -ge 120 ]; then
-	border_width=4
-	border_outer_width=2
+	border_width=0
+	border_outer_width=0
 else
-	border_width=2
-	border_outer_width=1
+	border_width=0
+	border_outer_width=0
 fi
 
 { # compound command to redirect all output
@@ -49,27 +36,27 @@ fi
 	# ------------------------
 
 	# initialize 10 workspaces (1-10) (default: 1/monitor)
-	dkcmd set numws=10
+	dkcmd set numws=5
 
 	# default workspace '_' values used when allocating new workspaces
 	# can be applied to all existing workspaces when passed 'apply' after ws=_
 	dkcmd set ws=_ apply layout=tile master=1 stack=3 gap=5 msplit=0.5 ssplit=0.5
 
 	# use grid layout, padding, and gaps on workspace 10
-	dkcmd set ws=10 layout=grid pad left=200 right=200 top=100 bottom=100 gap=50
+	dkcmd set ws=5 layout=grid pad left=200 right=200 top=100 bottom=100 gap=50
 
 	# change workspace names (default: number == name)
-	 dkcmd set \
-	 	ws=1  name="" \
-	 	ws=2  name="" \
-	 	ws=3  name="" \
-	 	ws=4  name="" \
-	 	ws=5  name="" \
-	 	ws=6  name="" \
-	 	ws=7  name="" \
-	 	ws=8  name="" \
-	 	ws=9  name="" \
-	 	ws=10 name=""
+	# dkcmd set \
+	# 	ws=1  name="edit" \
+	# 	ws=2  name="web" \
+	# 	ws=3  name="😀" \
+	# 	ws=4  name="😠" \
+	# 	ws=5  name="5" \
+	# 	ws=6  name="6" \
+	# 	ws=7  name="7" \
+	# 	ws=8  name="8" \
+	# 	ws=9  name="9" \
+	# 	ws=10 name="10"
 
 	# enable static workspaces and assign them to monitors (only relevant for multiple monitors)
 	# aside -
@@ -105,10 +92,13 @@ fi
 	dkcmd set win_minwh=50 win_minxy=10
 
 	# disable gaps and borders in single window layouts
-	dkcmd set smart_gap=false smart_border=true
+	dkcmd set smart_gap=false smart_border=false
 
 	# define mouse mod and move/resize buttons
 	dkcmd set mouse mod=alt move=button1 resize=button3
+
+	# obey motif border hints on windows that draw their own (steam, easyeffects, etc.)
+	dkcmd set obey_motif=true
 
 
 	# borders
@@ -170,6 +160,9 @@ fi
 	# dkcmd rule remove '*'
 
 } >> "$logfile" 2>&1 # append responses
+
+# autostart
+/home/xero/.config/dk/autostart.sh
 
 # inform of any errors in a notification
 if grep -q 'error:' "$logfile"; then

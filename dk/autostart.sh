@@ -1,12 +1,12 @@
-#!/bin/sh
-
-picom --config ~/.config/picom/picom.conf &
-nm-applet &
-volumeicon &
-cbatticonn &
-polybar &
+#!/usr/bin/env sh
+~/.config/bspwm/launch.sh
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 nitrogen --restore &
-/usr/lib/policykit-1-gnome/polkit-authentication-agent-1 &
+picom &
+cbatticon &
 dunst &
-numlockx on &
 xclip &
+volumeicon &
+nm-applet &
+numlockx on &
+xfce4-power-manager &
