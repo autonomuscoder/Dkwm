@@ -6,13 +6,13 @@
 
 ## Import files (Colors, Fonts, Etc)
 import:
-  - ~/.config/alacritty/yoru.yml
+  - ~/.config/alacritty/catppuccin-mocha.yml
   - ~/.config/alacritty/fonts.yml
 
 ## Set environment variables
 env:
   TERM: alacritty
-  WINIT_X11_SCALE_FACTOR: "1.0"
+  WINIT_X11_SCALE_FACTOR: '1.0'
 
 ## Terminal window settings
 window:
@@ -28,12 +28,12 @@ window:
   startup_mode: Windowed
   dynamic_title: true
 
-  ## scrolling
+## scrolling
   history: 10000
   multiplier: 3
 
-  ## Background opacity
-  opacity: 0.9
+## Background opacity
+  opacity: 0.6
 
 ## Cursor
 cursor:
@@ -45,8 +45,9 @@ cursor:
 
 ## Live config reload
 live_config_reload: true
+
 ## Shell
-#shell:
-#  program: /bin/zsh
+shell:
+  program: /bin/bash
 #  args:
 #    - --login

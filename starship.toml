@@ -1,71 +1,20 @@
-#///////////////////////#
-#    S T A R S H I P    #
-#///////////////////////#
-#     C O N F I G S     #
-#///////////////////////#
+format = """
+[\uE0B6](fg:#1C4961)[$directory](bg:#1C4961)[\uE0B0](fg:#1C4961 bg:#2F79A1)$git_branch[\uE0B0](fg:#2F79A1 bg:#3A95C7)$git_status[\uE0B0](#3A95C7 bg:#40A9E0)$time[\uE0B0](#40A9E0 bg:none) $all$character """
 
-# Add a line between prompts
 add_newline = true
 
-# MINIMAL OUTPUT 
-format = "($directory)"
-
 [directory]
-disabled = false
-home_symbol = "~"
-format = "[$path](#f38ba8) \n[∮ ](#cdd6f4)"
+style = "bg:#1C4961 fg:white"
 
-# SHOW SOME INFO
-# [hostname]
-# ssh_only = false
-# format = "[$hostname](bold blue) "
-# disabled = false
- 
-# icons: >, λ,∮,∫,⌲,⋗,⇒,
-# [character]
-# success_symbol = "[∮](bold white)"
-# error_symbol = "[∮](bold red)"
-
-# [package]
-# disabled = true
-
-# [directory]
-# style = "bold white"
-
-# Battery
-[battery]
-full_symbol = "  "
-charging_symbol = "  "
-discharging_symbol = "  "
-
-[[battery.display]]
-threshold = 10
-style = "bold red"
-
-[[battery.display]]
-threshold = 20
-style = "bold yellow"
-discharging_symbol = " "
-
-# Git 
 [git_branch]
-symbol = " "
-truncation_length = 4
-truncation_symbol = ""
-
-[git_commit]
-commit_hash_length = 4
-tag_symbol = " "
+format = "[ $symbol$branch ]($style)"
+style = "bg:#2F79A1 fg:white"
 
 [git_status]
-conflicted = ""
-ahead = '[](yellow)'
-behind = ""
-diverged = ""
-up_to_date = '[](white)'
-untracked = '[+\($count\)](yellow)'
-stashed = ""
-modified = '[](white)'
-staged = '[+\($count\)](green)'
-renamed = '[](white)'
-deleted = "﯊"
+format = "[ $all_status$ahead_behind ]($style)"
+style = "bg:#3A95C7 fg:white"
+
+[time]
+disabled = false
+format = "[ $time ]($style)"
+style = "bg:#40A9E0 fg:white"
